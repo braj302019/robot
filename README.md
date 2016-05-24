@@ -10,7 +10,7 @@
 2. Highly cohesive and loosely coupled
  - Well focused and **single responsible** classes are created
  - **Interfaces** are used to expose the dependencies only through their contracts for loose coupling
- - "Command Design Pattern" is used to encapsulate a request as an object or command, thereby letting you parameterize clients with different requests, queue or log requests for example Robot performs sequence of commands and logs each request
+ - **Command Design Pattern** is used to encapsulate a request as an object or command, thereby letting you parameterize clients with different requests, queue or log requests for example Robot performs sequence of commands and logs each request
  
 3. Good use of OOPS concepts
  - **Polymorphism** is achieved by using **Abstract** classes and **Interfaces**
