@@ -19,7 +19,7 @@ public class CarryCommandTest
     public void testCommand()
     {
         int distanceInMeters = 2000; // 2 KM
-        float weightInGrams = 2000; // 2 KG
+        float weightInGrams = 3000; // 3 KG
 
         PowerSource powerSource = new Battery();
         powerSource.charge(100.0f); // fully charged
@@ -35,8 +35,8 @@ public class CarryCommandTest
         command.execute();
 
         float actualRemainingPower = robot.getRemainingPower();
-        float expectedRemainingPower = 52.0f; // 48% power consumed (40% in
-                                              // moving + 8% in carrying item)
+        float expectedRemainingPower = 57.6f;
+        // 42.4% power consumed (40% in moving + 2.4% in carrying item)
         Assert.assertEquals(actualRemainingPower, expectedRemainingPower);
     }
 

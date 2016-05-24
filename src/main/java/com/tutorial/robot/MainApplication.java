@@ -7,6 +7,7 @@ import com.tutorial.robot.commands.Command;
 import com.tutorial.robot.commands.MoveCommand;
 import com.tutorial.robot.commands.ScanCommand;
 import com.tutorial.robot.components.ComponentFactory;
+import com.tutorial.robot.components.Mover;
 import com.tutorial.robot.components.RobotComponentFactory;
 import com.tutorial.robot.exceptions.ComponentNotFoundException;
 import com.tutorial.robot.item.BarCodeItem;
@@ -20,9 +21,10 @@ public class MainApplication
         ComponentFactory factory = new RobotComponentFactory();
 
         // Builder and Strategy Design Pattern
+        Mover mover = factory.createMover();
         Robot robot = new Robot.RobotBuilder().withPowerSource(factory.createPowerSource()).withDisplay(factory.createDisplay())
-                .withCharger(factory.createCharger()).withMover(factory.createMover()).withCarrier(factory.createCarrier())
-                .withScanner(factory.createScanner()).withHeadLightBulb(factory.createHeadLightBulb()).build();
+                .withCharger(factory.createCharger()).withMover(mover).withCarrier(factory.createCarrier(mover)).withScanner(factory.createScanner())
+                .withHeadLightBulb(factory.createHeadLightBulb()).build();
 
         // Singleton Lazy loading Design Pattern
         RobotController controller = RobotController.getInstance();
@@ -36,12 +38,13 @@ public class MainApplication
         Command moveCommand = new MoveCommand(robot, 3500);
         controller.addCommand(moveCommand);
 
-        // Charge again 30% more
-        Command nextChargingCommand = new ChargeCommand(robot, 30);
+        // Charge again 20% more
+        Command nextChargingCommand = new ChargeCommand(robot, 20);
         controller.addCommand(nextChargingCommand);
 
         // Robot walks for 2 KM carrying 3 KG weight
         BarCodeItem item = new BarCodeItem("ABC-99", 3000.00f);
+        // Decorator Design Pattern
         Command carryCommand = new CarryCommand(robot, item, 2000);
         controller.addCommand(carryCommand);
 
@@ -49,14 +52,10 @@ public class MainApplication
         Command scanCommand = new ScanCommand(robot, item);
         controller.addCommand(scanCommand);
 
-        // Charge again 10% more
-        Command oneMoreChargingCommand = new ChargeCommand(robot, 10);
-        controller.addCommand(oneMoreChargingCommand);
-
         // Robot carries over weight 12 KG weight
         Item overweightItem = new BarCodeItem("XYZ-1999", 12000.00f);
         Command nextCarryCommand = new CarryCommand(robot, overweightItem, 2000);
-        // controller.addCommand(nextCarryCommand);
+        controller.addCommand(nextCarryCommand);
 
         controller.executeCommands();
 

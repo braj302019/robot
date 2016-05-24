@@ -10,13 +10,13 @@ public class WheelMover implements Mover
 {
 
     @Override
-    public void move(PowerSource powerSource, int meters)
+    public float move(int meters)
 
     {
         try
         {
-            float powerConsumed = PowerSource.POWER_CONSUMED_PER_METER * meters;
-            powerSource.consume(powerConsumed);
+            float powerConsumedInMove = PowerSource.POWER_CONSUMED_PER_METER * meters;
+            return powerConsumedInMove;
         }
         catch (UnderChargedException e)
         {

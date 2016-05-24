@@ -20,7 +20,7 @@ public class ChargeCommand extends RobotCommand
     {
         try
         {
-            robot.display("Charging, power level: " + powerLevel);
+            robot.display("Charging " + powerLevel +"% more");
             robot.charge(powerLevel);
             robot.display("Charging completed");
         }

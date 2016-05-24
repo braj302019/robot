@@ -1,6 +1,7 @@
 
 package com.tutorial.robot;
 
+import com.tutorial.robot.components.Mover;
 import com.tutorial.robot.components.PowerSource;
 import com.tutorial.robot.components.impl.ElectricCharger;
 import com.tutorial.robot.components.impl.ItemCarrier;
@@ -12,8 +13,9 @@ public abstract class Helper
 {
     public static Robot createRobot(PowerSource powerSource)
     {
+        Mover mover = new WheelMover();
         Robot robot = new Robot.RobotBuilder().withPowerSource(powerSource).withDisplay(new LEDDisplay()).withCharger(new ElectricCharger())
-                .withHeadLightBulb(new LightBulb()).withMover(new WheelMover()).withCarrier(new ItemCarrier()).build();
+                .withHeadLightBulb(new LightBulb()).withMover(mover).withCarrier(new ItemCarrier(mover)).build();
         return robot;
     }
 }

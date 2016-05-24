@@ -31,24 +31,22 @@ public abstract class RobotCommand implements Command
 
     protected void beforeAction()
     {
-        System.out.println("Start Command");
-        System.out.println("Battery status: " + this.robot.getRemainingPower());
-        System.out.println("Start performing \"" + this.name + "\"");
+        System.out.println("Start Command: \"" + this.name + "\"");
+        System.out.println("Battery status: " + String.format("%.2f%%", this.robot.getRemainingPower()));
     }
 
     protected abstract void performAction() throws CommandFailureException;
 
     protected void afterAction(float power)
     {
-        System.out.println("End performing \"" + this.name + "\"");
         if (this instanceof PowerConsumptionCommand)
         {
-            System.out.println("Battery consumed: " + (power - this.robot.getRemainingPower()));
+            System.out.println("Battery consumed: " + String.format("%.2f%%", power - this.robot.getRemainingPower()));
         }
 
         System.out.println("Head Light status: " + this.robot.getHeadLightBlubStatus());
-        System.out.println("Battery remaining: " + this.robot.getRemainingPower());
-        System.out.println("End Command");
+        System.out.println("Battery remaining: " + String.format("%.2f%%", this.robot.getRemainingPower()));
+        System.out.println("End Command: \"" + this.name + "\"");
         System.out.println("------------------------------------------");
     }
 

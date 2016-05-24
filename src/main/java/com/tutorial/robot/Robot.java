@@ -3,8 +3,6 @@ package com.tutorial.robot;
 
 import org.apache.commons.lang3.Validate;
 
-import com.tutorial.robot.awares.HeadLightStatusAware;
-import com.tutorial.robot.awares.PowerConsumptionAware;
 import com.tutorial.robot.behaviours.CarryBehaviour;
 import com.tutorial.robot.behaviours.ChargeBehaviour;
 import com.tutorial.robot.behaviours.DisplayBehaviour;
@@ -27,7 +25,7 @@ import com.tutorial.robot.exceptions.ScanFailureException;
 import com.tutorial.robot.item.HasBarCode;
 import com.tutorial.robot.item.Item;
 
-public class Robot implements PowerConsumptionAware, HeadLightStatusAware, ScanBehaviour, MoveBehaviour, CarryBehaviour, DisplayBehaviour, ChargeBehaviour
+public class Robot implements ScanBehaviour, MoveBehaviour, CarryBehaviour, DisplayBehaviour, ChargeBehaviour
 {
     private PowerSource powerSource;
 
@@ -132,7 +130,8 @@ public class Robot implements PowerConsumptionAware, HeadLightStatusAware, ScanB
         {
             throw new MoverException("Mover is not attached");
         }
-        mover.move(powerSource, meters);
+        float powerConsumed = mover.move(meters);
+        powerSource.consume(powerConsumed);
         updateHeadLightBlub();
     }
 
@@ -147,7 +146,8 @@ public class Robot implements PowerConsumptionAware, HeadLightStatusAware, ScanB
         {
             throw new CarrierException("Mover is not attached");
         }
-        carrier.carry(item, mover, powerSource, meters);
+        float powerConsumed = carrier.carry(item, meters);
+        powerSource.consume(powerConsumed);
         updateHeadLightBlub();
     }
 
@@ -164,13 +164,11 @@ public class Robot implements PowerConsumptionAware, HeadLightStatusAware, ScanB
         updateHeadLightBlub();
     }
 
-    @Override
     public float getRemainingPower()
     {
         return powerSource.getPower();
     }
 
-    @Override
     public Status getHeadLightBlubStatus()
     {
         return headLightBulb.getStatus();

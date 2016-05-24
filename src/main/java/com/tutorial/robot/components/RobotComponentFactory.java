@@ -25,9 +25,9 @@ public class RobotComponentFactory extends ComponentFactory
     }
 
     @Override
-    public Carrier createCarrier()
+    public Carrier createCarrier(Mover mover)
     {
-        return new ItemCarrier();
+        return new ItemCarrier(mover);
     }
 
     @Override

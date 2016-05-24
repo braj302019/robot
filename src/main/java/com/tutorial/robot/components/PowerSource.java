@@ -10,7 +10,7 @@ public interface PowerSource extends Component
     float WARNING_POWER_LEVEL = 15;
     float MAX_POWER_LEVEL = 100;
     float POWER_CONSUMED_PER_METER = 0.02F;
-    float POWER_CONSUMED_PER_KG = 0.002F;
+    float POWER_CONSUMED_PER_KG_PER_METER = 0.0004F;
 
     float getPower();
 

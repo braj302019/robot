@@ -9,7 +9,7 @@ public abstract class ComponentFactory
 
     public abstract Mover createMover();
 
-    public abstract Carrier createCarrier();
+    public abstract Carrier createCarrier(Mover mover);
 
     public abstract Charger createCharger();
 
